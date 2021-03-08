@@ -169,11 +169,13 @@ public final class VirtualWorld
                         world.manager.reveal(character.getPosition().getX(), character.getPosition().getY(), imageStore, world, Integer.parseInt(world.backgroundType[character.getPosition().getX()][character.getPosition().getY()]) <= 0);
                         world.manager.mineField = world.manager.caluclateNeighborValues();
 
-                        if (world.manager.grassCount <= 0 && world.manager.flaggedSpotsRemaining <= 0) {
-                            world.background[character.getPosition().getY()][character.getPosition().getX()] = new Background("grass", imageStore.getImageList("grass"));
-                            page = "win";
-                        }
                     }
+//                        if (world.manager.grassCount <= 0 && world.manager.flaggedSpotsRemaining <= 0) {
+//                            world.background[character.getPosition().getY()][character.getPosition().getX()] = new Background("grass", imageStore.getImageList("grass"));
+//                            page = "win";
+//                        }
+                    if (!testDone())
+                        page = "win";
                 }
                 case "end", "win" -> {
                     setup();
@@ -239,7 +241,23 @@ public final class VirtualWorld
                 world.background[character.getPosition().getY()][character.getPosition().getX()] = new Background("grass", imageStore.getImageList("grass"));
                 world.manager.flaggedSpotsRemaining +=1;
             }
+            if (!testDone())
+                page = "win";
         }
+    }
+
+    private boolean testDone(){
+        boolean isGrass = false;
+        for (int i = 5; i < 25; i++)
+        {
+            for (int k = 5; k < 35; k++)
+            {
+                if (Optional.of(world.background[i][k].getCurrentImage())
+                    .equals(Optional.of(imageStore.getImageList("grass").get(0))))
+                        isGrass = true;
+            }
+        }
+        return isGrass;
     }
 
     private static Background createDefaultBackground(ImageStore imageStore)

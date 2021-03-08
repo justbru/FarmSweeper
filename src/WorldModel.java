@@ -37,7 +37,7 @@ final class WorldModel
       }
 
 
-      manager = new FieldManager(this.background, 55);
+      manager = new FieldManager(this.background, 10);
       this.backgroundType = manager.CreateField();
 
 
