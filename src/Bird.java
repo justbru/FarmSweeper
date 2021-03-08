@@ -32,7 +32,6 @@ public class Bird extends AnimalEntity
                 getPath().remove(getPath().get(0));
             }
             else if (world.isOccupied(getPath().get(0))){
-                System.out.println("ran into something");
                 setNextPosition(new Point((int) (Math.random() * 29), (int) (Math.random() * 39)));
                 setPath(this.getStrategy().computePath(getPosition(), getNextPosition(),
                         p -> (world.isOccupied(new Point (p.getX(), p.getY())) ||
